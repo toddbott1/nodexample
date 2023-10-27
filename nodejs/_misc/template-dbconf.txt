@@ -1,0 +1,11 @@
+module.exports = {
+
+	user: process.env.NODE_ORACLEDB_USER || <db-schema-name>,
+
+	password: process.env.NODE_ORACLEDB_PASSWORD,
+
+	connectString: process.env.NODE_ORACLEDB_CONNECTSTRING || <tnsnames-connection-name>,
+
+	externalAuth: process.env.NODE_ORACLEDB_EXTERNALAUTH ? true : false
+
+};

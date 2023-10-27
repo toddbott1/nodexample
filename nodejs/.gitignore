@@ -1,0 +1,13 @@
+node_modules
+
+package.json
+
+package-lock.json
+
+_old/
+
+.env
+
+/other/dbconf.js
+
+.DS_Store

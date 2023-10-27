@@ -1,0 +1,57 @@
+* * * * * * * * * * *
+
+- To run multiple apps from same VM, would start multiple node instances (listening on different ports), with LBR in front routing to the correct BackendSet by internal IP address (always pointing to vm1 for non-ADB apps) and port# (different port per app, aka per running node instance) based on the detected domain name, and with different per-app local master directory structures within this VM like /projects/privapp/, /projects/OTHERAPP/, etc.
+
+* * * * * * * * * * *
+
+- Later, when ready to deploy for prod, consider installing the NPM package "PM2" to daemonize nodejs and give you scriptable hooks to start/stop. Note that PM2 is better than "Forever" (and more widely used) per my research
+
+-- When using certbot, do the type of challenge where you serve a file out of static folder (HTTP only). Think this is called Webroot. This can be setup to automatically renew with no server downtime (on a cronjob)
+
+-- Useful links:
+
+--- https://advancedweb.hu/how-to-use-lets-encrypt-with-node-js-and-express/
+
+--- * * * https://webdock.io/en/docs/how-guides/app-installation-and-setup/how-to-deploy-your-first-nodejs-application-to-your-ubuntu-web-server
+
+--- https://itnext.io/node-express-letsencrypt-generate-a-free-ssl-certificate-and-run-an-https-server-in-5-minutes-a730fbe528ca
+
+--- https://thekenyandev.com/blog/how-to-restart-a-node-js-app-programmatically/
+
+--- https://eff-certbot.readthedocs.io/en/stable/using.html#webroot
+
+--- https://certbot.eff.org/instructions?ws=other&os=ubuntufocal
+
+--- https://www.win-acme.com/
+
+-- All about PM2:
+
+--- https://pm2.keymetrics.io/docs/usage/quick-start/
+
+--- https://github.com/Unitech/pm2
+
+* * * * * * * * * *
+
+- These commands below are to run the app on port 80 with node or nodemon. Note that node resticts you from running on port 80 unless you are root user. And root will not have the correct PATH env variable to find the node executable. Also, nodemon execution ultimately calls the node executable, so it has the same problem. You need to do this sort of thing on prod in the first place (or when debugging client-side only), because prod actually will use 80 and will have a redirect from 80 to 443. On the other hand, if you are developing the server-side and need to debug in VS Code in order to set breakpoints and so forth, then skip all of this and simply run on port 8080. Note if you exit the commands below with Ctl+Z (job stop) instead of Ctl+C (kill proc), then they may leave some processes hanging around that must be closed with commands like $ ps -ax | grep <node|nodemon> and also $ kill -9 <procid>.
+
+$ sudo -E env "PATH=$PATH" node app.js
+
+$ sudo -E env "PATH=$PATH" nodemon app.js
+
+* * * * * * * * * *
+
+- I may be able to solve the problem of not being able to debug in VS Code because it does not have privilege to listen on 80/443. In iptables, you forward 80=>8080 and 443=>8443. And to block inbound traffic going straight to 8080/8443, you also redirect to a generic port like 3000 and ensure traffic to this port is rejected. See bottom of this stackoverflow post for details --
+
+https://stackoverflow.com/questions/11065124/iptables-redirect-80-to-8080-but-block-public-8080-access
+
+Other related posts...
+
+https://unix.stackexchange.com/questions/114139/how-to-forward-from-port-80-to-8080-using-iptables-without-opening-port-8080
+
+https://apple.stackexchange.com/questions/37418/how-can-i-open-port-80-so-a-non-root-process-can-bind-to-it
+
+https://github.com/Microsoft/vscode/issues/16242
+
+And google for "ubuntu iptables forward port 80 to 8080"
+
+This solves the problem described above of having to set the sudo path manually (for both prod and debugging). Your code can always just listen on 8080/8443, and iptables takes care of receiving and redirecting traffic inbound to 80/443 for you !!!

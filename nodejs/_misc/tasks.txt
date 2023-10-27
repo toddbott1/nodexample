@@ -1,0 +1,23 @@
+- Remove LBR redirect rule, update healthcheck to 8443, and change code so that:
+-- Listens on both 8080 and 8443
+-- Actual app will be on 8443
+-- If request comes in on 8080, a client-side redirect will change to HTTPS/443
+-- LBR will route 80 to backed set on 8080 and 443 to backend set on 8443
+
+- Try adding this to DevOps GIT located in tboci
+
+- LATER (Necessary?): Setup a pinger PLSQL script form Paid AJD1 to Free VM1 to keep the VM alive
+
+- Remove LBR redirect rule, update healthcheck to 8443, and change code so that:
+
+-- Listens on both 8080 and 8443
+
+-- Actual app will be on 8443
+
+-- If request comes in on 8080, a client-side redirect will change to HTTPS/443
+
+-- LBR will route 80 to backed set on 8080 and 443 to backend set on 8443
+
+- Try adding this to DevOps GIT located in tboci
+
+- LATER (Necessary?): Setup a pinger PLSQL script form Paid AJD1 to Free VM1 to keep the VM alive

@@ -1,0 +1,3 @@
+NODE_ORACLEDB_PASSWORD=<db-schema-pwd>
+
+DBGMSG=OFF

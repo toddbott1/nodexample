@@ -1,0 +1,91 @@
+{
+
+	"folders": [
+
+		{
+
+			"name": "NODEJS",
+
+			"path": "./nodejs"
+
+		},
+
+		{
+
+			"name": "APEX",
+
+			"path": "./apex"
+
+		}
+
+	],
+
+	"settings": {
+
+		"telemetry.enableCrashReporter": false,
+
+		"editor.detectIndentation": false,
+
+		"editor.insertSpaces": false,
+
+		"editor.wordWrapColumn": 110,
+
+		"editor.rulers": [
+
+			110
+
+		],
+
+		"window.zoomLevel": 0,
+
+		"editor.wordWrap": "wordWrapColumn",
+
+		"files.eol": "\n",
+
+		"editor.fontSize": 12.5,
+
+		"zenMode.hideTabs": false
+
+	},
+
+	"launch": {
+
+		"version": "0.1.0",
+
+		"configurations": [
+
+			{
+
+				"type": "node",
+
+				"name": "Launch App",
+
+				"program": "${workspaceFolder:SERVER}/app.js",
+
+				"request": "launch",
+
+				"skipFiles": [
+
+					"${workspaceFolder:DATABASE}/*.*",
+
+					"${workspaceFolder:DATABASE}/**",
+
+					"${workspaceFolder:SERVER}/_old/*.*",
+
+					"${workspaceFolder:SERVER}/_old/**",
+
+					"${workspaceFolder:SERVER}/_misc/*.*",
+
+					"${workspaceFolder:SERVER}/_misc/**",
+
+					"<node_internals>/**"
+
+				]
+
+			}
+
+		]
+
+	}
+
+}
