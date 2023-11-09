@@ -1,0 +1,10 @@
+Install packages dotenv, ejs, express, nodemon (optional)
+
+Later can install the oracledb driver/package
+
+And use this snippet in the file...
+
+"main": "app.js",
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
